@@ -1,10 +1,8 @@
 import './App.css';
-import { logicalOperators } from './utils';
-import { studentsInfo } from './utils';
-import { comparisonOperators } from './utils';
 import React, { Component } from 'react';
-import Rule from './Rule';
 import { nanoid } from 'nanoid';
+import { logicalOperators, studentsInfo, comparisonOperators } from './utils';
+import Rule from './Rule';
 
 class App extends Component {
   constructor(props) {
@@ -61,9 +59,7 @@ class App extends Component {
   };
 
   handleDelete = (id) => {
-    const rulesList = this.state.rulesList.filter((item) => {
-      return item.id !== id;
-    });
+    const rulesList = this.state.rulesList.filter((item) => item.id !== id);
 
     const newQueryObject = this.state.queryObject;
     const filteredRules = newQueryObject.rules.filter((rule) => rule.id !== id);
@@ -72,7 +68,7 @@ class App extends Component {
 
     this.setState({
       queryObject: newQueryObject,
-      rulesList: rulesList,
+      rulesList,
     });
   };
 
@@ -89,31 +85,27 @@ class App extends Component {
 
     const { id: idx } = newQueryObject.rules[newQueryObject.rules.length - 1];
 
-    const rulesList = this.state.rulesList;
+    const { rulesList } = this.state;
     rulesList.push({ id: idx });
 
     this.setState({
-      rulesList: rulesList,
+      rulesList,
     });
   };
 
   render() {
-    const rule = this.state.rulesList.map((item) => {
-      return (
-        <Rule
-          id={item.id}
-          key={item.id}
-          field={this.fieldList}
-          onFieldChanged={(event) => this.handleFieldChange(event, item.id)}
-          operator={this.comparisonList}
-          onOperatorChanged={(event) =>
-            this.handleComparisonChange(event, item.id)
-          }
-          onValueChanged={(event) => this.handleValueChange(event, item.id)}
-          onDelete={() => this.handleDelete(item.id)}
-        />
-      );
-    });
+    const rule = this.state.rulesList.map((item) => (
+      <Rule
+        id={item.id}
+        key={item.id}
+        field={this.fieldList}
+        onFieldChanged={(event) => this.handleFieldChange(event, item.id)}
+        operator={this.comparisonList}
+        onOperatorChanged={(event) => this.handleComparisonChange(event, item.id)}
+        onValueChanged={(event) => this.handleValueChange(event, item.id)}
+        onDelete={() => this.handleDelete(item.id)}
+      />
+    ));
 
     return (
       <div className="App">
