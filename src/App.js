@@ -136,7 +136,9 @@ class App extends Component {
           </button>
         </div>
         <ol className="rules-list">{this.state.rulesList}</ol>
-        {console.log(this.state.queryObject)}
+        <pre className="output-json">
+          {JSON.stringify(this.state.queryObject, null, 2)}
+        </pre>
       </div>
     );
   }
