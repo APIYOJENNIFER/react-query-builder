@@ -3,14 +3,14 @@
   display: grid;
   align-items: center;
   width: 50vw;
-  background-color: aliceblue;
+  background-color: rgb(9, 65, 114);
   border-radius: 2px;
 }
 
 .App-heading {
   display: grid;
   justify-content: center;
-  color: rgb(19, 110, 189);
+  color: white;
 }
 
 hr {
@@ -42,7 +42,7 @@ hr {
   border: none;
   color: white;
   font-size: 14px;
-  background-color: rgb(80, 158, 80);
+  background-color: rgb(49, 148, 49);
   font-family: 'Times New Roman', Times, serif;
 }
 
