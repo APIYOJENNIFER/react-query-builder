@@ -1,7 +1,7 @@
 import './App.css';
-import logicalOperators from './logicalOperators';
-import studentsInfo from './studentsInfo';
-import comparisonOperators from './comparisonOperators';
+import { logicalOperators } from './utils';
+import { studentsInfo } from './utils';
+import { comparisonOperators } from './utils';
 import React, { Component } from 'react';
 import Rule from './Rule';
 import { nanoid } from 'nanoid';
