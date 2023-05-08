@@ -19,63 +19,54 @@ class App extends Component {
     };
   }
 
-  logical = logicalOperators.map((item, id) => {
-    return <option key={id}>{item}</option>;
-  });
+  logicalList = logicalOperators.map((item, id) => (
+    <option key={id}>{item}</option>
+  ));
 
-  onSelectOptionChanged = (event) => {
-    const newQueryObject = this.state.queryObject;
-    newQueryObject.combinator = event.target.value;
-    this.setState({ queryObject: newQueryObject });
+  handleLogicalChange = (event) => {
+    this.setState({
+      queryObject: {
+        ...this.state.queryObject,
+        combinator: event.target.value,
+      },
+    });
   };
 
-  field = studentsInfo.map((item, id) => {
-    return <option key={id}>{item}</option>;
-  });
+  fieldList = studentsInfo.map((item, id) => <option key={id}>{item}</option>);
 
-  onFieldOptionChanged = (event, idx) => {
+  handleEventChange = (key, event, idx) => {
     const newQueryObject = this.state.queryObject;
     newQueryObject.rules.forEach((rule) => {
       if (rule.id === idx) {
-        rule.field = event.target.value;
+        rule[key] = event.target.value.trim();
       }
     });
     this.setState({ queryObject: newQueryObject });
   };
 
-  comparison = comparisonOperators.map((item, id) => {
-    return <option key={id}>{item}</option>;
-  });
-
-  onComparisonOptionChanged = (event, idx) => {
-    const newQueryObject = this.state.queryObject;
-    newQueryObject.rules.forEach((rule) => {
-      if (rule.id === idx) {
-        rule.operator = event.target.value;
-      }
-    });
-    this.setState({ queryObject: newQueryObject });
+  handleFieldChange = (event, idx) => {
+    this.handleEventChange('field', event, idx);
   };
 
-  onValueChanged = (event, idx) => {
-    const newQueryObject = this.state.queryObject;
-    newQueryObject.rules.forEach((rule) => {
-      if (rule.id === idx) {
-        rule.value = event.target.value;
-      }
-    });
-    this.setState({ queryObject: newQueryObject });
+  comparisonList = comparisonOperators.map((item, id) => (
+    <option key={id}>{item}</option>
+  ));
+
+  handleComparisonChange = (event, idx) => {
+    this.handleEventChange('operator', event, idx);
   };
 
-  onDelete = (id) => {
+  handleValueChange = (event, idx) => {
+    this.handleEventChange('value', event, idx);
+  };
+
+  handleDelete = (id) => {
     const rulesList = this.state.rulesList.filter((item) => {
       return item.key !== id;
     });
 
     const newQueryObject = this.state.queryObject;
-    const filteredRules = newQueryObject.rules.filter((rule) => {
-      return rule.id !== id;
-    });
+    const filteredRules = newQueryObject.rules.filter((rule) => rule.id !== id);
 
     newQueryObject.rules = filteredRules;
 
@@ -104,14 +95,12 @@ class App extends Component {
         <Rule
           id={idx}
           key={idx}
-          field={this.field}
-          onFieldChanged={(event) => this.onFieldOptionChanged(event, idx)}
-          operator={this.comparison}
-          onOperatorChanged={(event) =>
-            this.onComparisonOptionChanged(event, idx)
-          }
-          onValueChanged={(event) => this.onValueChanged(event, idx)}
-          onDelete={() => this.onDelete(idx)}
+          field={this.fieldList}
+          onFieldChanged={(event) => this.handleFieldChange(event, idx)}
+          operator={this.comparisonList}
+          onOperatorChanged={(event) => this.handleComparisonChange(event, idx)}
+          onValueChanged={(event) => this.handleValueChange(event, idx)}
+          onDelete={() => this.handleDelete(idx)}
         />
       ),
     });
@@ -127,9 +116,9 @@ class App extends Component {
         <div className="App-top-section">
           <select
             className="logical-select"
-            onChange={this.onSelectOptionChanged}
+            onChange={this.handleLogicalChange}
           >
-            {this.logical}
+            {this.logicalList}
           </select>
           <button className="btn-add-rule" onClick={this.addRule}>
             ADD RULE
