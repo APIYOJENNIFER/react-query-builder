@@ -62,7 +62,7 @@ class App extends Component {
 
   handleDelete = (id) => {
     const rulesList = this.state.rulesList.filter((item) => {
-      return item.key !== id;
+      return item.id !== id;
     });
 
     const newQueryObject = this.state.queryObject;
@@ -90,23 +90,31 @@ class App extends Component {
     const { id: idx } = newQueryObject.rules[newQueryObject.rules.length - 1];
 
     const rulesList = this.state.rulesList;
+    rulesList.push({ id: idx });
+
     this.setState({
-      rulesList: rulesList.concat(
-        <Rule
-          id={idx}
-          key={idx}
-          field={this.fieldList}
-          onFieldChanged={(event) => this.handleFieldChange(event, idx)}
-          operator={this.comparisonList}
-          onOperatorChanged={(event) => this.handleComparisonChange(event, idx)}
-          onValueChanged={(event) => this.handleValueChange(event, idx)}
-          onDelete={() => this.handleDelete(idx)}
-        />
-      ),
+      rulesList: rulesList,
     });
   };
 
   render() {
+    const rule = this.state.rulesList.map((item) => {
+      return (
+        <Rule
+          id={item.id}
+          key={item.id}
+          field={this.fieldList}
+          onFieldChanged={(event) => this.handleFieldChange(event, item.id)}
+          operator={this.comparisonList}
+          onOperatorChanged={(event) =>
+            this.handleComparisonChange(event, item.id)
+          }
+          onValueChanged={(event) => this.handleValueChange(event, item.id)}
+          onDelete={() => this.handleDelete(item.id)}
+        />
+      );
+    });
+
     return (
       <div className="App">
         <div className="App-heading">
@@ -124,6 +132,7 @@ class App extends Component {
             ADD RULE
           </button>
         </div>
+        <ol className="rules-list">{rule}</ol>
         <ol className="rules-list">{this.state.rulesList}</ol>
         <pre className="output-json">
           {JSON.stringify(this.state.queryObject, null, 2)}
