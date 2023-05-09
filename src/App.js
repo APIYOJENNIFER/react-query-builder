@@ -3,8 +3,20 @@ import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
 import { logicalOperators, studentsInfo, comparisonOperators } from './utils';
 import Rule from './Rule';
+import { logicalOperators, studentsInfo, comparisonOperators } from './utils';
+import Rule from './Rule';
 
 class App extends Component {
+  logicalList = logicalOperators.map((item) => (
+    <option key={item}>{item}</option>
+  ));
+
+  fieldList = studentsInfo.map((item) => <option key={item}>{item}</option>);
+
+  comparisonList = comparisonOperators.map((item) => (
+    <option key={item}>{item}</option>
+  ));
+
   constructor(props) {
     super(props);
     this.state = {
@@ -17,26 +29,23 @@ class App extends Component {
     };
   }
 
-  logicalList = logicalOperators.map((item, id) => (
-    <option key={id}>{item}</option>
-  ));
-
   handleLogicalChange = (event) => {
+    const { queryObject } = this.state;
+
     this.setState({
       queryObject: {
-        ...this.state.queryObject,
+        ...queryObject,
         combinator: event.target.value,
       },
     });
   };
 
-  fieldList = studentsInfo.map((item, id) => <option key={id}>{item}</option>);
-
   handleEventChange = (key, event, idx) => {
-    const newQueryObject = this.state.queryObject;
+    const { queryObject: newQueryObject } = this.state;
     newQueryObject.rules.forEach((rule) => {
       if (rule.id === idx) {
-        rule[key] = event.target.value.trim();
+        const currentRule = rule;
+        currentRule[key] = event.target.value.trim();
       }
     });
     this.setState({ queryObject: newQueryObject });
@@ -45,10 +54,6 @@ class App extends Component {
   handleFieldChange = (event, idx) => {
     this.handleEventChange('field', event, idx);
   };
-
-  comparisonList = comparisonOperators.map((item, id) => (
-    <option key={id}>{item}</option>
-  ));
 
   handleComparisonChange = (event, idx) => {
     this.handleEventChange('operator', event, idx);
@@ -59,16 +64,17 @@ class App extends Component {
   };
 
   handleDelete = (id) => {
-    const rulesList = this.state.rulesList.filter((item) => item.id !== id);
+    const { rulesList } = this.state;
+    const updatedRulesList = rulesList.filter((item) => item.id !== id);
 
-    const newQueryObject = this.state.queryObject;
+    const { queryObject: newQueryObject } = this.state;
     const filteredRules = newQueryObject.rules.filter((rule) => rule.id !== id);
 
     newQueryObject.rules = filteredRules;
 
     this.setState({
       queryObject: newQueryObject,
-      rulesList,
+      rulesList: updatedRulesList,
     });
   };
 
@@ -80,28 +86,31 @@ class App extends Component {
       value: '',
     };
 
-    const newQueryObject = this.state.queryObject;
+    const { queryObject: newQueryObject } = this.state;
     newQueryObject.rules.push(ruleObject);
 
     const { id: idx } = newQueryObject.rules[newQueryObject.rules.length - 1];
 
-    const { rulesList } = this.state;
-    rulesList.push({ id: idx });
+    const { rulesList: updatedRulesList } = this.state;
+    updatedRulesList.push({ id: idx });
 
     this.setState({
-      rulesList,
+      rulesList: updatedRulesList,
     });
   };
 
   render() {
-    const rule = this.state.rulesList.map((item) => (
+    const { rulesList } = this.state;
+    const rule = rulesList.map((item) => (
       <Rule
         id={item.id}
         key={item.id}
         field={this.fieldList}
         onFieldChanged={(event) => this.handleFieldChange(event, item.id)}
         operator={this.comparisonList}
-        onOperatorChanged={(event) => this.handleComparisonChange(event, item.id)}
+        onOperatorChanged={(event) =>
+          this.handleComparisonChange(event, item.id)
+        }
         onValueChanged={(event) => this.handleValueChange(event, item.id)}
         onDelete={() => this.handleDelete(item.id)}
       />
@@ -120,7 +129,7 @@ class App extends Component {
           >
             {this.logicalList}
           </select>
-          <button className="btn-add-rule" onClick={this.addRule}>
+          <button type="button" className="btn-add-rule" onClick={this.addRule}>
             ADD RULE
           </button>
         </div>
