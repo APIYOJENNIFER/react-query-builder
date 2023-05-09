@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
 import { logicalOperators, studentsInfo, comparisonOperators } from './utils';
 import Rule from './Rule';
-import { logicalOperators, studentsInfo, comparisonOperators } from './utils';
-import Rule from './Rule';
 
 class App extends Component {
   logicalList = logicalOperators.map((item) => (
@@ -108,9 +106,7 @@ class App extends Component {
         field={this.fieldList}
         onFieldChanged={(event) => this.handleFieldChange(event, item.id)}
         operator={this.comparisonList}
-        onOperatorChanged={(event) =>
-          this.handleComparisonChange(event, item.id)
-        }
+        onOperatorChanged={(event) => this.handleComparisonChange(event, item.id)}
         onValueChanged={(event) => this.handleValueChange(event, item.id)}
         onDelete={() => this.handleDelete(item.id)}
       />
