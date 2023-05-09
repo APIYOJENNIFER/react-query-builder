@@ -8,7 +8,7 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
-[*.{js,html,css,json,yml}]
+[*.{js,jsx,html,css,json,yml}]
 indent_style = space
 indent_size = 2
 quote_type=single
