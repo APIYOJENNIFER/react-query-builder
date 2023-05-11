@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { studentsInfo } from './utils';
+import { studentsInfo } from '../utils';
 
 class Field extends PureComponent {
   fieldList = studentsInfo.map((item) => <option key={item}>{item}</option>);

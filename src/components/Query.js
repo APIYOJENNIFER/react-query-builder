@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import AddRule from './AddRule';
 import Logical from './Logical';
 import Rule from './Rule';
-import { deleteRule, onEventChange, updateRulesList } from './helper';
+import { deleteRule, onEventChange, updateRulesList } from '../helper';
 
 class Query extends Component {
   constructor(props) {
