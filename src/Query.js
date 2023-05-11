@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid';
 import AddRule from './AddRule';
 import Logical from './Logical';
 import Rule from './Rule';
+import { deleteRule, onEventChange, updateRulesList } from './helper';
 
 class Query extends Component {
   constructor(props) {
@@ -18,23 +19,11 @@ class Query extends Component {
   }
 
   addRule = () => {
-    const ruleObject = {
-      id: nanoid(),
-      field: 'First Name',
-      operator: '=',
-      value: '',
-    };
-
-    const { queryObject: newQueryObject } = this.state;
-    newQueryObject.rules.push(ruleObject);
-
-    const { id: idx } = newQueryObject.rules[newQueryObject.rules.length - 1];
-
-    const { rulesList: updatedRulesList } = this.state;
-    updatedRulesList.push({ id: idx });
+    const { queryObject, rulesList } = this.state;
+    const updatedRulesList = updateRulesList(queryObject, rulesList);
 
     this.setState({
-      rulesList: updatedRulesList,
+      rulesList: updatedRulesList.rulesList,
     });
   };
 
@@ -50,14 +39,10 @@ class Query extends Component {
   };
 
   handleEventChange = (key, event, idx) => {
-    const { queryObject: newQueryObject } = this.state;
-    newQueryObject.rules.forEach((rule) => {
-      if (rule.id === idx) {
-        const currentRule = rule;
-        currentRule[key] = event.trim();
-      }
-    });
-    this.setState({ queryObject: newQueryObject });
+    const { queryObject } = this.state;
+    const eventResult = onEventChange(queryObject, key, event, idx);
+
+    this.setState({ queryObject: eventResult.queryObject });
   };
 
   handleFieldChange = (event, idx) => {
@@ -73,17 +58,12 @@ class Query extends Component {
   };
 
   handleDelete = (id) => {
-    const { rulesList } = this.state;
-    const updatedRulesList = rulesList.filter((item) => item.id !== id);
-
-    const { queryObject: newQueryObject } = this.state;
-    const filteredRules = newQueryObject.rules.filter((rule) => rule.id !== id);
-
-    newQueryObject.rules = filteredRules;
+    const { queryObject, rulesList } = this.state;
+    const deleteResult = deleteRule(queryObject, rulesList, id);
 
     this.setState({
-      queryObject: newQueryObject,
-      rulesList: updatedRulesList,
+      queryObject: deleteResult.newQueryObject,
+      rulesList: deleteResult.updatedRulesList,
     });
   };
 
