@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { logicalOperators } from './utils';
+import { logicalOperators } from '../utils';
 
 class Logical extends PureComponent {
   logicalList = logicalOperators.map((item) => (

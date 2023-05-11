@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { comparisonOperators } from './utils';
+import { comparisonOperators } from '../utils';
 
 class Operator extends PureComponent {
   operatorList = comparisonOperators.map((item) => (
