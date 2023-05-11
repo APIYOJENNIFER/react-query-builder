@@ -1,40 +1,31 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import './Rule.css';
+import Field from './Field';
+import Operator from './Operator';
+import Value from './Value';
+import DeleteRule from './DeleteRule';
 
-function Rule({
-  onFieldChanged,
-  field,
-  onOperatorChanged,
-  operator,
-  onValueChanged,
-  onDelete,
-}) {
-  return (
-    <li>
-      <select className="select-student-info" onChange={onFieldChanged}>
-        {field}
-      </select>
-      <select
-        className="select-comparison-operator"
-        onChange={onOperatorChanged}
-      >
-        {operator}
-      </select>
-      <input className="input-value" onChange={onValueChanged} />
-      <button type="button" className="btn-delete-rule" onClick={onDelete}>
-        DELETE
-      </button>
-    </li>
-  );
+class Rule extends PureComponent {
+  render() {
+    const {
+      onValueChange, onFieldChange, onOperatorChange, onDelete,
+    } = this.props;
+
+    return (
+      <li>
+        <Field onFieldChange={onFieldChange} />
+        <Operator onOperatorChange={onOperatorChange} />
+        <Value onValueChange={onValueChange} />
+        <DeleteRule onDelete={onDelete} />
+      </li>
+    );
+  }
 }
 
 Rule.propTypes = {
-  onFieldChanged: PropTypes.func.isRequired,
-  field: PropTypes.arrayOf(PropTypes.string).isRequired,
-  operator: PropTypes.arrayOf(PropTypes.string).isRequired,
-  onOperatorChanged: PropTypes.func.isRequired,
-  onValueChanged: PropTypes.func.isRequired,
+  onValueChange: PropTypes.func.isRequired,
+  onFieldChange: PropTypes.func.isRequired,
+  onOperatorChange: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
 };
 
