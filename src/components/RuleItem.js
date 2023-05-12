@@ -5,28 +5,28 @@ import Operator from './Operator';
 import Value from './Value';
 import DeleteRule from './DeleteRule';
 
-class Rule extends PureComponent {
+class RuleItem extends PureComponent {
   render() {
     const {
       onValueChange, onFieldChange, onOperatorChange, onDelete,
     } = this.props;
 
     return (
-      <li>
+      <div>
         <Field onFieldChange={onFieldChange} />
         <Operator onOperatorChange={onOperatorChange} />
         <Value onValueChange={onValueChange} />
         <DeleteRule onDelete={onDelete} />
-      </li>
+      </div>
     );
   }
 }
 
-Rule.propTypes = {
+RuleItem.propTypes = {
   onValueChange: PropTypes.func.isRequired,
   onFieldChange: PropTypes.func.isRequired,
   onOperatorChange: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
 };
 
-export default Rule;
+export default RuleItem;

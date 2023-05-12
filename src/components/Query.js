@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
 import AddRule from './AddRule';
 import Logical from './Logical';
-import Rule from './Rule';
 import { deleteRule, onEventChange, updateRulesList } from '../helper';
+import Rules from './Rules';
 
 class Query extends Component {
   constructor(props) {
@@ -69,15 +69,6 @@ class Query extends Component {
 
   render() {
     const { rulesList } = this.state;
-    const rule = rulesList.map((item) => (
-      <Rule
-        key={item.id}
-        onFieldChange={(event) => this.handleFieldChange(event, item.id)}
-        onOperatorChange={(event) => this.handleOperatorChange(event, item.id)}
-        onValueChange={(event) => this.handleValueChange(event, item.id)}
-        onDelete={() => this.handleDelete(item.id)}
-      />
-    ));
 
     return (
       <div className="App">
@@ -90,7 +81,13 @@ class Query extends Component {
           />
           <AddRule onAddRule={this.addRule} />
         </div>
-        <ol className="rules-list">{rule}</ol>
+        <Rules
+          rulesList={rulesList}
+          onFieldChange={this.handleFieldChange}
+          onOperatorChange={this.handleOperatorChange}
+          onValueChange={this.handleValueChange}
+          onDelete={this.handleDelete}
+        />
       </div>
     );
   }
