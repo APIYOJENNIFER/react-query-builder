@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Field from './Field';
 import Operator from './Operator';
 import Value from './Value';
-import DeleteRule from './DeleteRule';
+import GeneralButton from './GeneralButton';
 
 class RuleItem extends PureComponent {
   render() {
@@ -16,7 +16,11 @@ class RuleItem extends PureComponent {
         <Field onFieldChange={onFieldChange} />
         <Operator onOperatorChange={onOperatorChange} />
         <Value onValueChange={onValueChange} />
-        <DeleteRule onDelete={onDelete} />
+        <GeneralButton
+          className="btn-delete-rule"
+          onClick={onDelete}
+          buttonText="DELETE"
+        />
       </div>
     );
   }
