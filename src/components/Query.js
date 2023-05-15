@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
-import AddRule from './AddRule';
 import Logical from './Logical';
 import { deleteRule, onEventChange, updateRulesList } from '../helper';
 import Rules from './Rules';
+import GeneralButton from './GeneralButton';
 
 class Query extends Component {
   constructor(props) {
@@ -79,7 +79,11 @@ class Query extends Component {
           <Logical
             onLogicalChange={(event) => this.handleLogicalChange(event)}
           />
-          <AddRule onAddRule={this.addRule} />
+          <GeneralButton
+            className="btn-add-rule"
+            onClick={this.addRule}
+            buttonText="ADD RULE"
+          />
         </div>
         <Rules
           rulesList={rulesList}
