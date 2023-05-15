@@ -8,13 +8,14 @@ export const updateRulesList = (queryObject, rulesList) => {
     value: '',
   };
   queryObject.rules.push(ruleObject);
-
   const { id: idx } = queryObject.rules[queryObject.rules.length - 1];
-
   rulesList.push({ id: idx });
+
+  const updatedRules = queryObject.rules;
 
   return {
     rulesList,
+    updatedRules,
   };
 };
 
@@ -26,8 +27,8 @@ export const deleteRule = (queryObject, rulesList, id) => {
   newQueryObject.rules = filteredRules;
 
   return {
-    newQueryObject,
     updatedRulesList,
+    filteredRules,
   };
 };
 
@@ -38,6 +39,7 @@ export const onEventChange = (queryObject, key, event, idx) => {
       currentRule[key] = event.trim();
     }
   });
+  const updatedRules = queryObject.rules;
 
-  return { queryObject };
+  return { queryObject, updatedRules };
 };

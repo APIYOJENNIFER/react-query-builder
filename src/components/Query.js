@@ -4,6 +4,7 @@ import Logical from './Logical';
 import { deleteRule, onEventChange, updateRulesList } from '../helper';
 import Rules from './Rules';
 import GeneralButton from './GeneralButton';
+import QueryOutput from './QueryOutput';
 
 class Query extends Component {
   constructor(props) {
@@ -24,6 +25,10 @@ class Query extends Component {
 
     this.setState({
       rulesList: updatedRulesList.rulesList,
+      queryObject: {
+        ...queryObject,
+        rules: updatedRulesList.updatedRules,
+      },
     });
   };
 
@@ -42,7 +47,12 @@ class Query extends Component {
     const { queryObject } = this.state;
     const eventResult = onEventChange(queryObject, key, event, idx);
 
-    this.setState({ queryObject: eventResult.queryObject });
+    this.setState({
+      queryObject: {
+        ...queryObject,
+        rules: eventResult.updatedRules,
+      },
+    });
   };
 
   handleFieldChange = (event, idx) => {
@@ -62,13 +72,16 @@ class Query extends Component {
     const deleteResult = deleteRule(queryObject, rulesList, id);
 
     this.setState({
-      queryObject: deleteResult.newQueryObject,
+      queryObject: {
+        ...queryObject,
+        rules: deleteResult.filteredRules,
+      },
       rulesList: deleteResult.updatedRulesList,
     });
   };
 
   render() {
-    const { rulesList } = this.state;
+    const { rulesList, queryObject } = this.state;
 
     return (
       <div className="App">
@@ -92,6 +105,7 @@ class Query extends Component {
           onValueChange={this.handleValueChange}
           onDelete={this.handleDelete}
         />
+        <QueryOutput queryObject={queryObject} />
       </div>
     );
   }
