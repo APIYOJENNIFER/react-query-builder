@@ -23,9 +23,11 @@
     }
   },
   "lint-staged": {
-    "src/**/*.js": "npm run lint:fix"
+    "src/**/*.{js,jsx}": "npm run lint:fix"
   },
   "dependencies": {
+    "nanoid": "^4.0.2",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

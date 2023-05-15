@@ -25,5 +25,6 @@ module.exports = {
   },
   rules: {
     'newline-before-return': 'error',
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
   },
 };
