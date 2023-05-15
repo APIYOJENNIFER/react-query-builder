@@ -1,7 +1,7 @@
-import '../App.css';
-import '../Rule.css';
+import './App.css';
+import './Rule.css';
 import React, { PureComponent } from 'react';
-import Query from './Query';
+import Query from './components/Query';
 
 class App extends PureComponent {
   render() {
