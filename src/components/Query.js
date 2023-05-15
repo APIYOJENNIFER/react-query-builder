@@ -88,6 +88,7 @@ class Query extends Component {
         <div className="App-heading">
           <h2>React Query Builder</h2>
         </div>
+        <hr />
         <div className="App-top-section">
           <Logical
             onLogicalChange={(event) => this.handleLogicalChange(event)}
