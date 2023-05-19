@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
 import Logical from './Logical';
-import { deleteRule, onEventChange, updateRulesList } from '../helper';
+
+import {
+  deleteRule,
+  onEventChange,
+  updateRulesList,
+  validateInput,
+} from '../helper';
 import Rules from './Rules';
 import GeneralButton from './GeneralButton';
 import QueryOutput from './QueryOutput';
@@ -57,6 +63,26 @@ class Query extends Component {
 
   handleFieldChange = (event, idx) => {
     this.handleEventChange('field', event, idx);
+
+    const { rulesList, queryObject } = this.state;
+    this.setState({
+      rulesList: rulesList.map((rule) =>
+        rule.id === idx
+          ? {
+              ...rule,
+              isValid: true,
+              errorMessage: '',
+              value: '',
+            }
+          : rule
+      ),
+      queryObject: {
+        ...queryObject,
+        rules: queryObject.rules.map((rule) =>
+          rule.id === idx ? { ...rule, value: '' } : rule
+        ),
+      },
+    });
   };
 
   handleOperatorChange = (event, idx) => {
@@ -64,7 +90,25 @@ class Query extends Component {
   };
 
   handleValueChange = (event, idx) => {
-    this.handleEventChange('value', event, idx);
+    const { queryObject, rulesList } = this.state;
+    const validationResult = validateInput(queryObject, event, idx);
+
+    this.setState({
+      rulesList: rulesList.map((rule) =>
+        rule.id === idx
+          ? {
+              ...rule,
+              isValid: validationResult.isValid,
+              errorMessage: validationResult.errorMessage,
+              value: event,
+            }
+          : rule
+      ),
+    });
+
+    if (validationResult.isValid) {
+      this.handleEventChange('value', event, idx);
+    }
   };
 
   handleDelete = (id) => {

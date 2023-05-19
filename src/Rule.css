@@ -35,3 +35,7 @@
   background-color: rgb(169, 43, 43);
   font-family: 'Times New Roman', Times, serif;
 }
+
+.error-output {
+  color: rgb(221, 82, 82);
+}

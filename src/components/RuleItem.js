@@ -4,18 +4,26 @@ import Field from './Field';
 import Operator from './Operator';
 import Value from './Value';
 import GeneralButton from './GeneralButton';
+import Error from './Error';
 
 class RuleItem extends PureComponent {
   render() {
     const {
-      onValueChange, onFieldChange, onOperatorChange, onDelete,
+      onValueChange,
+      onFieldChange,
+      onOperatorChange,
+      onDelete,
+      isValid,
+      errorMessage,
+      value,
     } = this.props;
 
     return (
       <div>
         <Field onFieldChange={onFieldChange} />
         <Operator onOperatorChange={onOperatorChange} />
-        <Value onValueChange={onValueChange} />
+        <Value onValueChange={onValueChange} value={value} />
+        <Error isValid={isValid} errorMessage={errorMessage} />
         <GeneralButton
           className="btn-delete-rule"
           onClick={onDelete}
@@ -31,6 +39,9 @@ RuleItem.propTypes = {
   onFieldChange: PropTypes.func.isRequired,
   onOperatorChange: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
+  isValid: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
 };
 
 export default RuleItem;

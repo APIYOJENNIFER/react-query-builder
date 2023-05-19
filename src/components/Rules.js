@@ -19,6 +19,9 @@ class Rules extends Component {
         onOperatorChange={(event) => onOperatorChange(event, item.id)}
         onValueChange={(event) => onValueChange(event, item.id)}
         onDelete={() => onDelete(item.id)}
+        isValid={item.isValid}
+        errorMessage={item.errorMessage}
+        value={item.value}
       />
     ));
   }
