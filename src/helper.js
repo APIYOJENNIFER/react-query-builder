@@ -89,22 +89,23 @@ export const validateInput = (queryObject, event, idx) => {
         currentRule.field === 'Last Name'
       ) {
         isValid = validateName(event);
-        errorMessage = 'Invalid name';
+        errorMessage = 'Name should contain alphabetical characters only';
       }
 
       if (currentRule.field === 'Age') {
         isValid = validateAge(event);
-        errorMessage = 'Invalid age';
+        errorMessage = 'Please enter a valid age using digits only';
       }
 
       if (currentRule.field === 'Level') {
         isValid = validateLevel(event);
-        errorMessage = 'Invalid level';
+        errorMessage =
+          'Level should contain digits only, not exceeding six digits';
       }
 
       if (currentRule.field === 'Enrollment Year') {
         isValid = validateEnrollmentYear(event);
-        errorMessage = 'Invalid year';
+        errorMessage = 'Please enter a valid year using digits only';
       }
     }
   });
