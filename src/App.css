@@ -3,14 +3,14 @@
   display: grid;
   align-items: center;
   width: 50vw;
-  background-color: #0c4160;
+  background-color: white;
   border-radius: 2px;
 }
 
 .App-heading {
   display: grid;
   justify-content: center;
-  color: white;
+  color: black;
 }
 
 hr {
@@ -47,7 +47,7 @@ hr {
 }
 
 .query-output {
-  background-color: white;
+  background-color: whitesmoke;
   padding: 10px;
   margin: 10px;
   border-radius: 2px;

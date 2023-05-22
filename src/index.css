@@ -7,4 +7,5 @@ body {
   font-family: 'Times New Roman', Times, serif;
   display: flex;
   justify-content: center;
+  background-color: gainsboro;
 }
