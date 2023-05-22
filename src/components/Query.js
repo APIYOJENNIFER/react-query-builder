@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid';
 import Logical from './Logical';
 
 import {
+  changeInputPlaceHolder,
   deleteRule,
   onEventChange,
   updateRulesList,
@@ -64,6 +65,8 @@ class Query extends Component {
   handleFieldChange = (event, idx) => {
     this.handleEventChange('field', event, idx);
 
+    const placeHolder = changeInputPlaceHolder(event);
+
     const { rulesList, queryObject } = this.state;
     this.setState({
       rulesList: rulesList.map((rule) =>
@@ -73,6 +76,7 @@ class Query extends Component {
               isValid: true,
               errorMessage: '',
               value: '',
+              placeHolder,
             }
           : rule
       ),

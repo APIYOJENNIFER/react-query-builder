@@ -22,6 +22,7 @@ class Rules extends Component {
         isValid={item.isValid}
         errorMessage={item.errorMessage}
         value={item.value}
+        placeHolder={item.placeHolder}
       />
     ));
   }

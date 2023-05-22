@@ -14,6 +14,7 @@ export const updateRulesList = (queryObject, rulesList) => {
     isValid: true,
     errorMessage: '',
     value,
+    placeHolder: 'E.g John',
   });
 
   const updatedRules = queryObject.rules;
@@ -47,6 +48,27 @@ export const onEventChange = (queryObject, key, event, idx) => {
   const updatedRules = queryObject.rules;
 
   return { queryObject, updatedRules };
+};
+
+export const changeInputPlaceHolder = (event) => {
+  let placeHolder = '';
+  if (event === 'First Name') {
+    placeHolder = 'E.g John';
+  }
+  if (event === 'Last Name') {
+    placeHolder = 'E.g Doe';
+  }
+  if (event === 'Age') {
+    placeHolder = 'E.g 10';
+  }
+  if (event === 'Level') {
+    placeHolder = 'E.g 1289';
+  }
+  if (event === 'Enrollment Year') {
+    placeHolder = 'E.g 2021';
+  }
+  
+return placeHolder;
 };
 
 const validateName = (inputString) => {

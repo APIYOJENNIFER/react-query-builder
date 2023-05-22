@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 
 class Value extends PureComponent {
   render() {
-    const { onValueChange, value } = this.props;
+    const { onValueChange, value, placeHolder } = this.props;
 
     return (
       <input
         value={value}
+        placeholder={placeHolder}
         className="input-value"
         onChange={(event) => onValueChange(event.target.value)}
       />
@@ -18,6 +19,7 @@ class Value extends PureComponent {
 Value.propTypes = {
   onValueChange: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
+  placeHolder: PropTypes.string.isRequired,
 };
 
 export default Value;

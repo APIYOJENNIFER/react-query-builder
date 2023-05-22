@@ -16,6 +16,7 @@ class RuleItem extends PureComponent {
       isValid,
       errorMessage,
       value,
+      placeHolder,
     } = this.props;
 
     return (
@@ -23,7 +24,11 @@ class RuleItem extends PureComponent {
         <Field onFieldChange={onFieldChange} />
         <Operator onOperatorChange={onOperatorChange} />
         <div className="input-error">
-          <Value onValueChange={onValueChange} value={value} />
+          <Value
+            onValueChange={onValueChange}
+            value={value}
+            placeHolder={placeHolder}
+          />
           <Error isValid={isValid} errorMessage={errorMessage} />
         </div>
         <GeneralButton
@@ -44,6 +49,7 @@ RuleItem.propTypes = {
   isValid: PropTypes.bool.isRequired,
   errorMessage: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
+  placeHolder: PropTypes.string.isRequired,
 };
 
 export default RuleItem;
