@@ -19,11 +19,13 @@ class RuleItem extends PureComponent {
     } = this.props;
 
     return (
-      <div>
+      <div className="rule-item">
         <Field onFieldChange={onFieldChange} />
         <Operator onOperatorChange={onOperatorChange} />
-        <Value onValueChange={onValueChange} value={value} />
-        <Error isValid={isValid} errorMessage={errorMessage} />
+        <div className="input-error">
+          <Value onValueChange={onValueChange} value={value} />
+          <Error isValid={isValid} errorMessage={errorMessage} />
+        </div>
         <GeneralButton
           className="btn-delete-rule"
           onClick={onDelete}
