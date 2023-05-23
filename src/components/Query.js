@@ -147,13 +147,15 @@ class Query extends Component {
             buttonText="ADD RULE"
           />
         </div>
-        <Rules
-          rulesList={rulesList}
-          onFieldChange={this.handleFieldChange}
-          onOperatorChange={this.handleOperatorChange}
-          onValueChange={this.handleValueChange}
-          onDelete={this.handleDelete}
-        />
+        <div className="rules">
+          <Rules
+            rulesList={rulesList}
+            onFieldChange={this.handleFieldChange}
+            onOperatorChange={this.handleOperatorChange}
+            onValueChange={this.handleValueChange}
+            onDelete={this.handleDelete}
+          />
+        </div>
         <QueryOutput queryObject={queryObject} />
       </div>
     );

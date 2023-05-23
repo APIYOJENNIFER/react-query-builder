@@ -1,7 +1,8 @@
 .select-student-info {
   margin-right: 10px;
+  margin-top: 10px;
   padding: 8px;
-  border: 1px solid gainsboro;
+  border: 1px solid lightgray;
   border-radius: 2px;
   font-size: 16px;
   font-family: 'Times New Roman', Times, serif;
@@ -10,7 +11,7 @@
 .select-comparison-operator {
   margin-right: 10px;
   padding: 8px;
-  border: 1px solid gainsboro;
+  border: 1px solid lightgray;
   border-radius: 2px;
   font-size: 16px;
 }
@@ -18,7 +19,7 @@
 .input-value {
   margin-bottom: 3px;
   padding: 8px;
-  border: 1px solid gainsboro;
+  border: 1px solid lightgray;
   border-radius: 2px;
   font-size: 16px;
   font-family: 'Times New Roman', Times, serif;
@@ -49,4 +50,10 @@
 
 .input-error {
   display: grid;
+}
+
+.rules {
+  background-color: white;
+  margin: 10px;
+  border-radius: 2px;
 }

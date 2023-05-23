@@ -24,18 +24,20 @@ class RuleItem extends PureComponent {
         <Field onFieldChange={onFieldChange} />
         <Operator onOperatorChange={onOperatorChange} />
         <div className="input-error">
-          <Value
-            onValueChange={onValueChange}
-            value={value}
-            placeHolder={placeHolder}
-          />
+          <div>
+            <Value
+              onValueChange={onValueChange}
+              value={value}
+              placeHolder={placeHolder}
+            />
+            <GeneralButton
+              className="btn-delete-rule"
+              onClick={onDelete}
+              buttonText="DELETE"
+            />
+          </div>
           <Error isValid={isValid} errorMessage={errorMessage} />
         </div>
-        <GeneralButton
-          className="btn-delete-rule"
-          onClick={onDelete}
-          buttonText="DELETE"
-        />
       </div>
     );
   }
