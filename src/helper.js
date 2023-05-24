@@ -67,34 +67,37 @@ export const changeInputPlaceHolder = (event) => {
   if (event === 'Enrollment Year') {
     placeHolder = 'E.g 2021';
   }
-  
-return placeHolder;
+
+  return placeHolder;
 };
 
 const validateName = (inputString) => {
-  const reg = /^[\p{L}]+$/u;
-  const isValid = reg.test(inputString);
+  const reg = /^[\p{L} ]+$/u;
+  const isValid = inputString.length === 0 ? true : reg.test(inputString);
 
   return isValid;
 };
 
 const validateAge = (inputString) => {
   const reg = /^(?:[0-9]|[1-9][0-9]|1[0-2][0-9]|130)$/;
-  const isValid = reg.test(inputString);
+  const isValid =
+    inputString.length === 0 ? true : reg.test(inputString.trim());
 
   return isValid;
 };
 
 const validateLevel = (inputString) => {
   const reg = /^[0-9]{1,6}$/;
-  const isValid = reg.test(inputString);
+  const isValid =
+    inputString.length === 0 ? true : reg.test(inputString.trim());
 
   return isValid;
 };
 
 const validateEnrollmentYear = (inputString) => {
   const reg = /^(?!0)[0-9]{4}$/;
-  const isValid = reg.test(inputString);
+  const isValid =
+    inputString.length === 0 ? true : reg.test(inputString.trim());
 
   return isValid;
 };
