@@ -12,6 +12,7 @@ import {
 import Rules from './Rules';
 import GeneralButton from './GeneralButton';
 import QueryOutput from './QueryOutput';
+import withBackgroundColor from './withBackgroundColor';
 
 class Query extends Component {
   constructor(props) {
@@ -24,6 +25,10 @@ class Query extends Component {
         rules: [],
       },
     };
+  }
+
+  componentDidMount() {
+    this.addRule();
   }
 
   addRule = () => {
@@ -77,6 +82,7 @@ class Query extends Component {
               errorMessage: '',
               value: '',
               placeHolder,
+              selectedValue: event,
             }
           : rule
       ),
@@ -91,6 +97,18 @@ class Query extends Component {
 
   handleOperatorChange = (event, idx) => {
     this.handleEventChange('operator', event, idx);
+
+    const { rulesList } = this.state;
+    this.setState({
+      rulesList: rulesList.map((rule) =>
+        rule.id === idx
+          ? {
+              ...rule,
+              selectedOperator: event,
+            }
+          : rule
+      ),
+    });
   };
 
   handleValueChange = (event, idx) => {
@@ -130,6 +148,12 @@ class Query extends Component {
 
   render() {
     const { rulesList, queryObject } = this.state;
+    const AddRuleButton = withBackgroundColor(
+      GeneralButton,
+      '#319431',
+      this.addRule,
+      'ADD RULE'
+    );
 
     return (
       <div className="App">
@@ -141,11 +165,7 @@ class Query extends Component {
           <Logical
             onLogicalChange={(event) => this.handleLogicalChange(event)}
           />
-          <GeneralButton
-            className="btn-add-rule"
-            onClick={this.addRule}
-            buttonText="ADD RULE"
-          />
+          <AddRuleButton />
         </div>
         <div className="rules">
           <Rules

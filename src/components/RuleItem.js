@@ -1,10 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import Field from './Field';
-import Operator from './Operator';
 import Value from './Value';
 import GeneralButton from './GeneralButton';
 import Error from './Error';
+import { studentsInfo, comparisonOperators } from '../utils';
+import GeneralSelect from './GeneralSelect';
+import withOptions from './withOptions';
+import withBackgroundColor from './withBackgroundColor';
 
 class RuleItem extends PureComponent {
   render() {
@@ -17,12 +19,34 @@ class RuleItem extends PureComponent {
       errorMessage,
       value,
       placeHolder,
+      selectedValue,
+      selectedOperator,
     } = this.props;
+
+    const FieldSelect = withOptions(
+      GeneralSelect,
+      studentsInfo,
+      onFieldChange,
+      selectedValue
+    );
+    const OperatorSelect = withOptions(
+      GeneralSelect,
+      comparisonOperators,
+      onOperatorChange,
+      selectedOperator
+    );
+
+    const DeleteButton = withBackgroundColor(
+      GeneralButton,
+      '#b22222',
+      onDelete,
+      'DELETE'
+    );
 
     return (
       <div className="rule-item">
-        <Field onFieldChange={onFieldChange} />
-        <Operator onOperatorChange={onOperatorChange} />
+        <FieldSelect />
+        <OperatorSelect />
         <div className="input-error">
           <div>
             <Value
@@ -30,11 +54,7 @@ class RuleItem extends PureComponent {
               value={value}
               placeHolder={placeHolder}
             />
-            <GeneralButton
-              className="btn-delete-rule"
-              onClick={onDelete}
-              buttonText="DELETE"
-            />
+            <DeleteButton />
           </div>
           <Error isValid={isValid} errorMessage={errorMessage} />
         </div>
@@ -52,6 +72,8 @@ RuleItem.propTypes = {
   errorMessage: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   placeHolder: PropTypes.string.isRequired,
+  selectedValue: PropTypes.string.isRequired,
+  selectedOperator: PropTypes.string.isRequired,
 };
 
 export default RuleItem;

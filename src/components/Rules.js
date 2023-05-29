@@ -23,6 +23,8 @@ class Rules extends Component {
         errorMessage={item.errorMessage}
         value={item.value}
         placeHolder={item.placeHolder}
+        selectedValue={item.selectedValue}
+        selectedOperator={item.selectedOperator}
       />
     ));
   }

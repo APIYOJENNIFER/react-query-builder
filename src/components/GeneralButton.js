@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 class GeneralButton extends PureComponent {
   render() {
-    const { className, onClick, buttonText } = this.props;
+    const { onClick, buttonText, style } = this.props;
 
     return (
-      <button className={className} type="button" onClick={onClick}>
+      <button style={style} type="button" onClick={onClick}>
         {buttonText}
       </button>
     );
@@ -14,8 +14,8 @@ class GeneralButton extends PureComponent {
 }
 
 GeneralButton.propTypes = {
-  className: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   buttonText: PropTypes.string.isRequired,
+  style: PropTypes.oneOfType([PropTypes.object]).isRequired,
 };
 export default GeneralButton;

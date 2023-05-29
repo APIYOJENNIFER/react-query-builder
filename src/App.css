@@ -35,17 +35,6 @@ hr {
   font-family: 'Times New Roman', Times, serif;
 }
 
-.btn-add-rule {
-  padding: 9px;
-  border-radius: 2px;
-  cursor: pointer;
-  border: none;
-  color: white;
-  font-size: 14px;
-  background-color: rgb(49, 148, 49);
-  font-family: 'Times New Roman', Times, serif;
-}
-
 .query-output {
   background-color: white;
   padding: 10px;

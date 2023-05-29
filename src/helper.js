@@ -14,6 +14,8 @@ export const updateRulesList = (queryObject, rulesList) => {
     isValid: true,
     errorMessage: '',
     value,
+    selectedValue: 'First Name',
+    selectedOperator: '=',
     placeHolder: 'E.g John',
   });
 
@@ -47,7 +49,7 @@ export const onEventChange = (queryObject, key, event, idx) => {
   });
   const updatedRules = queryObject.rules;
 
-  return { queryObject, updatedRules };
+  return { updatedRules };
 };
 
 export const changeInputPlaceHolder = (event) => {
