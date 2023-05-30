@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
 import Logical from './Logical';
-import { deleteRule, onEventChange, updateRulesList } from '../helper';
+
+import {
+  changeInputPlaceHolder,
+  deleteRule,
+  onEventChange,
+  updateRulesList,
+  validateInput,
+} from '../helper';
 import Rules from './Rules';
 import GeneralButton from './GeneralButton';
+import QueryOutput from './QueryOutput';
 
 class Query extends Component {
   constructor(props) {
@@ -24,6 +32,10 @@ class Query extends Component {
 
     this.setState({
       rulesList: updatedRulesList.rulesList,
+      queryObject: {
+        ...queryObject,
+        rules: updatedRulesList.updatedRules,
+      },
     });
   };
 
@@ -42,11 +54,39 @@ class Query extends Component {
     const { queryObject } = this.state;
     const eventResult = onEventChange(queryObject, key, event, idx);
 
-    this.setState({ queryObject: eventResult.queryObject });
+    this.setState({
+      queryObject: {
+        ...queryObject,
+        rules: eventResult.updatedRules,
+      },
+    });
   };
 
   handleFieldChange = (event, idx) => {
     this.handleEventChange('field', event, idx);
+
+    const placeHolder = changeInputPlaceHolder(event);
+
+    const { rulesList, queryObject } = this.state;
+    this.setState({
+      rulesList: rulesList.map((rule) =>
+        rule.id === idx
+          ? {
+              ...rule,
+              isValid: true,
+              errorMessage: '',
+              value: '',
+              placeHolder,
+            }
+          : rule
+      ),
+      queryObject: {
+        ...queryObject,
+        rules: queryObject.rules.map((rule) =>
+          rule.id === idx ? { ...rule, value: '' } : rule
+        ),
+      },
+    });
   };
 
   handleOperatorChange = (event, idx) => {
@@ -54,7 +94,25 @@ class Query extends Component {
   };
 
   handleValueChange = (event, idx) => {
-    this.handleEventChange('value', event, idx);
+    const { queryObject, rulesList } = this.state;
+    const validationResult = validateInput(queryObject, event, idx);
+
+    this.setState({
+      rulesList: rulesList.map((rule) =>
+        rule.id === idx
+          ? {
+              ...rule,
+              isValid: validationResult.isValid,
+              errorMessage: validationResult.errorMessage,
+              value: event,
+            }
+          : rule
+      ),
+    });
+
+    if (validationResult.isValid) {
+      this.handleEventChange('value', event, idx);
+    }
   };
 
   handleDelete = (id) => {
@@ -62,19 +120,23 @@ class Query extends Component {
     const deleteResult = deleteRule(queryObject, rulesList, id);
 
     this.setState({
-      queryObject: deleteResult.newQueryObject,
+      queryObject: {
+        ...queryObject,
+        rules: deleteResult.filteredRules,
+      },
       rulesList: deleteResult.updatedRulesList,
     });
   };
 
   render() {
-    const { rulesList } = this.state;
+    const { rulesList, queryObject } = this.state;
 
     return (
       <div className="App">
         <div className="App-heading">
           <h2>React Query Builder</h2>
         </div>
+        <hr />
         <div className="App-top-section">
           <Logical
             onLogicalChange={(event) => this.handleLogicalChange(event)}
@@ -85,13 +147,16 @@ class Query extends Component {
             buttonText="ADD RULE"
           />
         </div>
-        <Rules
-          rulesList={rulesList}
-          onFieldChange={this.handleFieldChange}
-          onOperatorChange={this.handleOperatorChange}
-          onValueChange={this.handleValueChange}
-          onDelete={this.handleDelete}
-        />
+        <div className="rules">
+          <Rules
+            rulesList={rulesList}
+            onFieldChange={this.handleFieldChange}
+            onOperatorChange={this.handleOperatorChange}
+            onValueChange={this.handleValueChange}
+            onDelete={this.handleDelete}
+          />
+        </div>
+        <QueryOutput queryObject={queryObject} />
       </div>
     );
   }

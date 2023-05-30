@@ -1,24 +1,25 @@
 .select-student-info {
-  margin: 0 10px 10px 10px;
+  margin-right: 10px;
+  margin-top: 10px;
   padding: 8px;
-  border: 1px solid gainsboro;
+  border: 1px solid lightgray;
   border-radius: 2px;
   font-size: 16px;
   font-family: 'Times New Roman', Times, serif;
 }
 
 .select-comparison-operator {
-  margin: 0 10px 10px 10px;
+  margin-right: 10px;
   padding: 8px;
-  border: 1px solid gainsboro;
+  border: 1px solid lightgray;
   border-radius: 2px;
   font-size: 16px;
 }
 
 .input-value {
-  margin: 0 10px 10px 10px;
+  margin-bottom: 3px;
   padding: 8px;
-  border: 1px solid gainsboro;
+  border: 1px solid lightgray;
   border-radius: 2px;
   font-size: 16px;
   font-family: 'Times New Roman', Times, serif;
@@ -26,12 +27,33 @@
 
 .btn-delete-rule {
   padding: 9px;
-  margin: 0 10px 10px 10px;
+  margin-left: 10px;
   border-radius: 2px;
   cursor: pointer;
   border: none;
   color: white;
   font-size: 14px;
-  background-color: rgb(166, 78, 78);
+  background-color: firebrick;
   font-family: 'Times New Roman', Times, serif;
+}
+
+.error-output {
+  color: firebrick;
+  font-weight: 500;
+}
+
+.rule-item {
+  display: flex;
+  align-items: baseline;
+  margin: 5px 10px 10px 10px;
+}
+
+.input-error {
+  display: grid;
+}
+
+.rules {
+  background-color: white;
+  margin: 10px;
+  border-radius: 2px;
 }
