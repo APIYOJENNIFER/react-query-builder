@@ -71,35 +71,34 @@ export const changeInputPlaceHolder = (event) => {
   return placeHolder;
 };
 
-const validateName = (inputString) => {
-  const reg = /^[\p{L} ]+$/u;
-  const isValid = inputString.length === 0 ? true : reg.test(inputString);
+const checkIfInputIsValid = (inputString, reg) => {
+  const isValid = inputString.length === 0 || reg.test(inputString.trim());
 
   return isValid;
+};
+
+const validateName = (inputString) => {
+  const reg = /^[\p{L} ]+$/u;
+
+  return checkIfInputIsValid(inputString, reg);
 };
 
 const validateAge = (inputString) => {
   const reg = /^(?:[0-9]|[1-9][0-9]|1[0-2][0-9]|130)$/;
-  const isValid =
-    inputString.length === 0 ? true : reg.test(inputString.trim());
 
-  return isValid;
+  return checkIfInputIsValid(inputString, reg);
 };
 
 const validateLevel = (inputString) => {
   const reg = /^[0-9]{1,6}$/;
-  const isValid =
-    inputString.length === 0 ? true : reg.test(inputString.trim());
 
-  return isValid;
+  return checkIfInputIsValid(inputString, reg);
 };
 
 const validateEnrollmentYear = (inputString) => {
   const reg = /^(?!0)[0-9]{4}$/;
-  const isValid =
-    inputString.length === 0 ? true : reg.test(inputString.trim());
 
-  return isValid;
+  return checkIfInputIsValid(inputString, reg);
 };
 
 export const validateInput = (queryObject, event, idx) => {
